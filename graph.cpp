@@ -40,7 +40,7 @@ Graph::Graph()
 }
 
 // Insert new fencer into the map using data from CSV file
-void Graph::createMap(string filename)
+void Graph::createMap(string filename, bool trackerData)
 {
     fstream file;
     file.open(filename, ios::in);
@@ -59,24 +59,35 @@ void Graph::createMap(string filename)
     bool emptyRow = false;
 
     while (getline(file, line)) {
-        if (emptyRow && emptyCounter > 3) {
-            row.clear();
-            stringstream s(line);
-            // push each new item into vector
-            while (std::getline(s, item, ',')) {
-                row.push_back(item);
-            }
-            fencers[num] = new Fencer(row[0], row[1], row[2], row[3],
-                                      row[4], row[5], row[6], row[7], row[8],
-                                      row[9], row[10]);
-            num++;
-            emptyRow = !emptyRow;
-        }
-        else {
-            emptyRow = !emptyRow;
-            emptyCounter++;
-        }
-
+   		if (trackerData) {
+			if (emptyRow && emptyCounter > 3) {
+				row.clear();
+				getline(file, line);
+				stringstream s(line);
+				// push each new item into vector
+				while (std::getline(s, item, ',')) {
+					row.push_back(item);
+				}
+				fencers[num] = new Fencer(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
+				num++;
+				emptyRow = !emptyRow;
+			}
+			else {
+				emptyRow = !emptyRow;
+				emptyCounter++;
+			}
+		}
+		else {
+			row.clear();
+			getline(file, line);
+			stringstream s(line);
+			// push each new item into vector
+			while (std::getline(s, item, ',')) {
+				row.push_back(item);
+			}
+			fencers[num] = new Fencer(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
+			num++;
+		}
     }
 
     file.close();
