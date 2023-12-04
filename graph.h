@@ -1,5 +1,5 @@
-#ifndef PROGRAMMINGQUIZ4_GRAPH_H
-#define PROGRAMMINGQUIZ4_GRAPH_H
+#ifndef PROJECT3_GRAPH_H
+#define PROJECT3_GRAPH_H
 
 #include <map>
 #include <fstream>
@@ -34,4 +34,4 @@ public:
 
 };
 
-#endif //PROGRAMMINGQUIZ4_GRAPH_H
+#endif //PROJECT3_GRAPH_H

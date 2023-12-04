@@ -45,6 +45,12 @@ void Graph::createMap(string filename)
     fstream file;
     file.open(filename, ios::in);
 
+    if (!file.is_open()) {
+        // Handle file opening failure
+        cout << "Error opening file." << endl;
+        return;
+    }
+
     vector<string> row;
     string line, item, temp;
     int num = 0;

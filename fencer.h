@@ -1,5 +1,5 @@
-#ifndef PROGRAMMINGQUIZ4_FENCER_H
-#define PROGRAMMINGQUIZ4_FENCER_H
+#ifndef PROJECT3_FENCER_H
+#define PROJECT3_FENCER_H
 
 #include <string>
 using namespace std;
@@ -19,4 +19,4 @@ struct Fencer {
     string deWinRatio;
 };
 
-#endif //PROGRAMMINGQUIZ4_FENCER_H
+#endif //PROJECT3_FENCER_H
