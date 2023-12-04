@@ -14,7 +14,7 @@ void Visualize(Graph* fGraph) {
 int main() {
     Graph* fGraph = new Graph();
     // pass csv file path as string
-    fGraph->createMap("output.csv");
+    fGraph->createMap("output.csv", false);
 
     // generates random edges between vertices, first param is # edges, second param is the seed for random generation
     fGraph->generateEdges(1000, 1);
