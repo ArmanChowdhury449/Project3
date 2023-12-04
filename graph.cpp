@@ -1,9 +1,11 @@
 #include <string>
 #include <vector>
+#include <fstream>
+#include <sstream>
 #include <stdlib.h>
 #include "graph.h"
 
-#define F 1000
+#define F 9999
 
 // finds next min weighted edge that hasn't been visited for dijkstra algorithm
 int Graph::minEdge(int dist[], bool visited[])
@@ -40,16 +42,11 @@ Graph::Graph()
 }
 
 // Insert new fencer into the map using data from CSV file
+// Insert new fencer into the map using data from CSV file
 void Graph::createMap(string filename, bool trackerData)
 {
     fstream file;
     file.open(filename, ios::in);
-
-    if (!file.is_open()) {
-        // Handle file opening failure
-        cout << "Error opening file." << endl;
-        return;
-    }
 
     vector<string> row;
     string line, item, temp;
@@ -58,39 +55,37 @@ void Graph::createMap(string filename, bool trackerData)
 
     bool emptyRow = false;
 
-    while (getline(file, line)) {
-   		if (trackerData) {
-			if (emptyRow && emptyCounter > 3) {
-				row.clear();
-				getline(file, line);
-				stringstream s(line);
-				// push each new item into vector
-				while (std::getline(s, item, ',')) {
-					row.push_back(item);
-				}
-				fencers[num] = new Fencer(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
-				num++;
-				emptyRow = !emptyRow;
-			}
-			else {
-				emptyRow = !emptyRow;
-				emptyCounter++;
-			}
-		}
-		else {
-			row.clear();
-			getline(file, line);
-			stringstream s(line);
-			// push each new item into vector
-			while (std::getline(s, item, ',')) {
-				row.push_back(item);
-			}
-			fencers[num] = new Fencer(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
-			num++;
-		}
+    while (file >> temp) {
+        if (trackerData) {
+            if (emptyRow && emptyCounter > 3) {
+                row.clear();
+                getline(file, line);
+                stringstream s(line);
+                // push each new item into vector
+                while (std::getline(s, item, ',')) {
+                    row.push_back(item);
+                }
+                fencers[num] = new Fencer(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
+                num++;
+                emptyRow = !emptyRow;
+            }
+            else {
+                emptyRow = !emptyRow;
+                emptyCounter++;
+            }
+        }
+        else {
+            row.clear();
+            getline(file, line);
+            stringstream s(line);
+            // push each new item into vector
+            while (std::getline(s, item, ',')) {
+                row.push_back(item);
+            }
+            fencers[num] = new Fencer(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
+            num++;
+        }
     }
-
-    file.close();
 }
 
 void Graph::generateEdges(int numEdges, int seed)
@@ -105,6 +100,7 @@ void Graph::generateEdges(int numEdges, int seed)
         // weight is bound from 1 -> 15;
         randRow = rand() % F;
         randCol = rand() % F;
+
         randWeight = 1 + (rand() % 15);
 
         addEdge(randRow, randCol, randWeight);
@@ -119,8 +115,7 @@ void Graph::addEdge(int to, int from, int weight)
 }
 
 // prints the map of fencers: "int: name"
-GraphAdjMatrix<string>* Graph::copyToBridges() {
-    GraphAdjMatrix<string> out;
+void Graph::copyToBridges(GraphAdjMatrix<string, string>* graph) {
 
     // adjMatrix edges in bridges get added like so --> addEdge(from, to, weight)
 
@@ -133,25 +128,44 @@ GraphAdjMatrix<string>* Graph::copyToBridges() {
 
             weight = adjMatrix[i][j];
 
-            if(weight == 0) {
-                continue;
+            if(weight != 0) {
+                from = fencers[i];
+                to = fencers[j];
+
+                if(from != NULL) {
+                    graph->addVertex(from->name + "\n" + from->club, from->club);
+                }
+                if(to != NULL) {
+                    graph->addVertex(to->name + "\n" + to->club, to->club);
+                }
             }
-
-            from = fencers[i];
-            to = fencers[j];
-
-            out.addVertex(from->name);
-            out.addVertex(to->name);
-            out.addEdge(from->name, to->name, weight);
 
         }
     }
+
+    for(int i = 0; i < adjMatrix.size(); i++) {
+        for (int j = 0; j < adjMatrix[0].size(); j++) {
+
+            weight = adjMatrix[i][j];
+
+            if(weight != 0) {
+                from = fencers[i];
+                to = fencers[j];
+
+                if(from != NULL && to != NULL) {
+                    graph->addEdge(from->name + "\n" + from->club, to->name + "\n" + to->club, weight);
+                }
+            }
+
+        }
+    }
+
 
 }
 
 // Goes through map and find shortest dist paths to each node with dijkstra's algorithm
 // result stored in private distD and prevD variable
-void Graph::dijkstraAlgorithm(int start)
+void Graph::dijkstraAlgorithm(int start, GraphAdjMatrix<string, string>* graph)
 {
     // initialize vars
     bool visit[F];
@@ -182,8 +196,7 @@ void Graph::dijkstraAlgorithm(int start)
 
 // Goes through map and find shortest dist paths to each node with the Bellman Ford algorithm
 // result stored in private distBF and prevBF variable
-void Graph::bfAlgorithm(int start)
-{
+void Graph::bfAlgorithm(int start, GraphAdjMatrix<string, string>* graph) {
     distBF[start] = 0;
 
     for (int h = 0; h < F - 1; h++) {
@@ -191,12 +204,29 @@ void Graph::bfAlgorithm(int start)
             for (int j = 0; j < F; j++) {
                 if (distBF[i] != INT_MAX &&
                     adjMatrix[i][j] &&
-                    distBF[j] > (distBF[i] + adjMatrix[i][j]))
-                {
+                    distBF[j] > (distBF[i] + adjMatrix[i][j])) {
                     distBF[j] = distBF[i] + adjMatrix[i][j];
                     prevBF[j] = i;
                 }
             }
         }
+    }
+}
+
+void Graph::printMap() {
+    map<int, Fencer*>::iterator it = fencers.begin();
+    while (it != fencers.end()) {
+        cout << it->first << ": " << it->second->name << endl;
+        ++it;
+    }
+}
+
+void Graph::printAdjMatrix() {
+    for(int i = 0; i < 1000; i++) {
+        for(int j = 0; j < 1000; j++) {
+            cout << adjMatrix[i][j];
+            cout << ", ";
+        }
+        cout << endl;
     }
 }

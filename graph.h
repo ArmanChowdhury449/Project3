@@ -1,9 +1,7 @@
-#ifndef PROJECT3_GRAPH_H
-#define PROJECT3_GRAPH_H
+#ifndef P3TEST_GRAPH_H
+#define P3TEST_GRAPH_H
 
 #include <map>
-#include <fstream>
-#include <sstream>
 #include <iostream>
 #include "fencer.h"
 #include "libraries/bridges/include/Bridges.h"
@@ -28,10 +26,11 @@ public:
     Graph();
     void createMap(string filename, bool trackerData);
     void generateEdges(int numEdges, int seed);
-    GraphAdjMatrix<string>* copyToBridges();
-    void dijkstraAlgorithm(int start);
-    void bfAlgorithm(int start);
-
+    void copyToBridges(GraphAdjMatrix<string, string>* graph);
+    void dijkstraAlgorithm(int start, GraphAdjMatrix<string, string>* graph);
+    void bfAlgorithm(int start, GraphAdjMatrix<string, string>* graph);
+    void printMap();
+    void printAdjMatrix();
 };
 
-#endif //PROJECT3_GRAPH_H
+#endif //P3TEST_GRAPH_H
