@@ -26,7 +26,7 @@ private:
 
 public:
     Graph();
-    void createMap(string filename);
+    void createMap(string filename, bool trackerData);
     void generateEdges(int numEdges, int seed);
     GraphAdjMatrix<string>* copyToBridges();
     void dijkstraAlgorithm(int start);
