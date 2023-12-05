@@ -6,6 +6,7 @@
 #include "graph.h"
 
 #define F 9999
+#define CTRL 100
 
 // finds next min weighted edge that hasn't been visited for dijkstra algorithm
 int Graph::minEdge(int dist[], bool visited[])
@@ -99,11 +100,12 @@ void Graph::generateEdges(int numEdges, int seed)
         // row and column are bound from 0 -> F-1
         // weight is bound from 1 -> 15;
         randRow = rand() % F;
-        randCol = rand() % F;
+        for(int j = 0; j < numEdges/CTRL; j++) {
+            randCol = rand() % F;
+            randWeight = 1 + (rand() % 35);
+            addEdge(randCol, randRow, randWeight);
+        }
 
-        randWeight = 1 + (rand() % 15);
-
-        addEdge(randRow, randCol, randWeight);
     }
 }
 
@@ -133,10 +135,10 @@ void Graph::copyToBridges(GraphAdjMatrix<string, string>* graph) {
                 to = fencers[j];
 
                 if(from != NULL) {
-                    graph->addVertex(from->name + "\n" + from->club, from->club);
+                    graph->addVertex(from->name + "\n" + from->club, "");
                 }
                 if(to != NULL) {
-                    graph->addVertex(to->name + "\n" + to->club, to->club);
+                    graph->addVertex(to->name + "\n" + to->club, "");
                 }
             }
 
@@ -165,14 +167,10 @@ void Graph::copyToBridges(GraphAdjMatrix<string, string>* graph) {
 
 // Goes through map and find shortest dist paths to each node with dijkstra's algorithm
 // result stored in private distD and prevD variable
-void Graph::dijkstraAlgorithm(int start, GraphAdjMatrix<string, string>* graph)
+void Graph::dijkstraAlgorithm(int start)
 {
     // initialize vars
-    bool visit[F];
-
-    for (int i = 0; i < F; i++) {
-        visit[i] = false;
-    }
+    bool visit[F] = {false};
 
     distD[start] = 0;
 
@@ -191,12 +189,13 @@ void Graph::dijkstraAlgorithm(int start, GraphAdjMatrix<string, string>* graph)
             }
         }
     }
+
     return;
 }
 
 // Goes through map and find shortest dist paths to each node with the Bellman Ford algorithm
 // result stored in private distBF and prevBF variable
-void Graph::bfAlgorithm(int start, GraphAdjMatrix<string, string>* graph) {
+void Graph::bfAlgorithm(int start) {
     distBF[start] = 0;
 
     for (int h = 0; h < F - 1; h++) {
@@ -229,4 +228,29 @@ void Graph::printAdjMatrix() {
         }
         cout << endl;
     }
+}
+
+int *Graph::getDistD() {
+    return distD;
+}
+
+
+int *Graph::getPrevD() {
+    return prevD;
+}
+
+int *Graph::getDistBF() {
+    return distBF;
+}
+
+int *Graph::getPrevBF() {
+    return prevBF;
+}
+
+Fencer *Graph::getFencer(int key) {
+    return fencers[key];
+}
+
+int Graph::getNumVertices() {
+    return fencers.size();
 }

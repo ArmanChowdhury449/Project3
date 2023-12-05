@@ -27,10 +27,16 @@ public:
     void createMap(string filename, bool trackerData);
     void generateEdges(int numEdges, int seed);
     void copyToBridges(GraphAdjMatrix<string, string>* graph);
-    void dijkstraAlgorithm(int start, GraphAdjMatrix<string, string>* graph);
-    void bfAlgorithm(int start, GraphAdjMatrix<string, string>* graph);
+    void dijkstraAlgorithm(int start);
+    void bfAlgorithm(int start);
     void printMap();
     void printAdjMatrix();
+    int* getDistD();
+    int* getPrevD();
+    int* getDistBF();
+    int* getPrevBF();
+    Fencer* getFencer(int key);
+    int getNumVertices();
 };
 
 #endif //P3TEST_GRAPH_H
