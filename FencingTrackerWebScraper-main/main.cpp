@@ -31,17 +31,17 @@ int main() {
 
 	string club;
 	int clubIndex;
-	string clubs[100] = { "Swift Sabres Fencing Club", "Noble Foil Academy", "Steel Enclave Fencing Society", "Luminous Épée Guild", "Rapid Riposte Institute", "Vanguard Blade Collective", "Celestial Rapier Consortium", 
+	string clubs[100] = { "Swift Sabres Fencing Club", "Noble Foil Academy", "Steel Enclave Fencing Society", "Luminous Ã‰pÃ©e Guild", "Rapid Riposte Institute", "Vanguard Blade Collective", "Celestial Rapier Consortium", 
 		"Phoenix Parry Club", "Ethereal Edge Alliance", "Majestic Sabre Syndicate", "Valiant Vanguard Fencers", "Sapphire Slash Club", "Fierce Foil Fellowship", "Lunar Lunge League", "Crimson Clash Association", "Gallant Guard Guild",
-		"Pinnacle Parry House", "Enigma Épée Ensemble", "Stellar Sword Society", "Aegis Assault Club", "Noble Nimbus Fencing", "Virtuoso Vorpal Vault", "Onyx Olympiad Fencers", "Vivacious Vector Vanguards", "Zenith Zorro Zephyr", 
-		"Ecliptic En Garde Academy", "Infinite Impale Institute", "Dynamic Duel Den", "Radiant Riposte Republic", "Sable Sabre Society", "Crestfallen Cutlass Club", "Fabled Fencer Fortress", "Epic Épée Enclave", "Prowess Parry Pavilion", 
-		"Mystic Marauder Maître", "Ethereal Edge Ensemble", "Rogue Rapier Realm", "Lustrous Lunge Lodge", "Fervent Foil Fellowship", "Harmony Hilt Haven", "Seraphic Sabre Syndicate", "Lunar Lance Legion", "Blazing Blade Brigade", 
+		"Pinnacle Parry House", "Enigma Ã‰pÃ©e Ensemble", "Stellar Sword Society", "Aegis Assault Club", "Noble Nimbus Fencing", "Virtuoso Vorpal Vault", "Onyx Olympiad Fencers", "Vivacious Vector Vanguards", "Zenith Zorro Zephyr", 
+		"Ecliptic En Garde Academy", "Infinite Impale Institute", "Dynamic Duel Den", "Radiant Riposte Republic", "Sable Sabre Society", "Crestfallen Cutlass Club", "Fabled Fencer Fortress", "Epic Ã‰pÃ©e Enclave", "Prowess Parry Pavilion", 
+		"Mystic Marauder MaÃ®tre", "Ethereal Edge Ensemble", "Rogue Rapier Realm", "Lustrous Lunge Lodge", "Fervent Foil Fellowship", "Harmony Hilt Haven", "Seraphic Sabre Syndicate", "Lunar Lance Legion", "Blazing Blade Brigade", 
 		"Astral Assault Academy", "Vivid Valiant Vortex", "Velvet Verge Vanguards", "Paragon Parry Pavilion", "Nimble Nimbus Network", "Mystical Musketeer Manor", "Jade Joust Jamboree", "Fabled Fencer Fraternity", "Zephyr Zenith Zorro",
-		"Virtuoso Vector Vault", "Enchanted Épée Empire", "Thunder Thrust Tribe", "Obsidian Olympiad Order", "Eternal Edge Ensemble", "Radiant Rapier Refuge", "Sapphire Slash Sanctuary", "Pinnacle Parry Palace", "Crimson Crest Club", 
-		"Gallant Glaive Guild", "Onyx Olympiad Order", "Valiant Vector Vigil", "Ecliptic Épée Escapade", "Infinite Impale Inn", "Dynamic Duel Den", "Radiant Riposte Retreat", "Sable Sabre Stronghold", "Crestfallen Cutlass Castle", 
+		"Virtuoso Vector Vault", "Enchanted Ã‰pÃ©e Empire", "Thunder Thrust Tribe", "Obsidian Olympiad Order", "Eternal Edge Ensemble", "Radiant Rapier Refuge", "Sapphire Slash Sanctuary", "Pinnacle Parry Palace", "Crimson Crest Club", 
+		"Gallant Glaive Guild", "Onyx Olympiad Order", "Valiant Vector Vigil", "Ecliptic Ã‰pÃ©e Escapade", "Infinite Impale Inn", "Dynamic Duel Den", "Radiant Riposte Retreat", "Sable Sabre Stronghold", "Crestfallen Cutlass Castle", 
 		"Fabled Fencer Fortress", "Prowess Parry Palace", "Mystic Marauder Mansion", "Ethereal Edge Estate", "Rogue Rapier Retreat", "Lustrous Lunge Lodge", "Fervent Foil Fort", "Harmony Hilt Haven", "Seraphic Sabre Sanctuary", 
 		"Lunar Lance Lair", "Blazing Blade Bastion", "Astral Assault Asylum", "Vivid Valiant Villa", "Velvet Verge Venue", "Paragon Parry Pavilion", "Nimble Nimbus Nest", "Mystical Musketeer Manor", "Jade Joust Jungle", "Fabled Fencer Fellowship", 
-		"Zephyr Zenith Zorro Zone", "Virtuoso Vector Vortex", "Enchanted Épée Enclave", "Thunder Thrust Territory", "Obsidian Olympiad Outpost", "Eternal Edge Edifice", "Radiant Rapier Refuge", "Sapphire Slash Shelter", "Pinnacle Parry Precinct", 
+		"Zephyr Zenith Zorro Zone", "Virtuoso Vector Vortex", "Enchanted Ã‰pÃ©e Enclave", "Thunder Thrust Territory", "Obsidian Olympiad Outpost", "Eternal Edge Edifice", "Radiant Rapier Refuge", "Sapphire Slash Shelter", "Pinnacle Parry Precinct", 
 		"Crimson Crest Citadel", "Gallant Glaive Garrison" };
 
 	int totalWins;
